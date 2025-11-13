@@ -8,6 +8,7 @@ import { ReflectionScreen } from './components/ReflectionScreen';
 import { HabitTrackerScreen } from './components/HabitTrackerScreen';
 import { AnalyticsDashboard } from './components/AnalyticsDashboard';
 import { MentalWellnessToolkit } from './components/MentalWellnessToolkit';
+import { SleepCoachScreen } from './components/SleepCoachScreen';
 import { OnboardingFlow } from './components/OnboardingFlow';
 
 /**
@@ -20,7 +21,7 @@ import { OnboardingFlow } from './components/OnboardingFlow';
  * - Ambient feedback: Visual and motion cues provide calm reassurance
  */
 
-type Screen = 'home' | 'journal' | 'soundscape' | 'reflection' | 'habits' | 'analytics' | 'wellness' | 'profile';
+type Screen = 'home' | 'journal' | 'soundscape' | 'reflection' | 'habits' | 'analytics' | 'wellness' | 'sleep' | 'profile';
 
 export default function App() {
   const [currentScreen, setCurrentScreen] = useState<Screen>('home');
@@ -58,7 +59,7 @@ export default function App() {
       <main className="relative z-10 pb-24">
         <AnimatePresence mode="wait">
           {currentScreen === 'home' && (
-            <EnhancedHomeScreen key="home" userName={userName} currentMood={currentMood} />
+            <EnhancedHomeScreen key="home" userName={userName} currentMood={currentMood} onNavigate={setCurrentScreen} />
           )}
           {currentScreen === 'journal' && (
             <AdvancedJournalScreen key="journal" onMoodChange={setCurrentMood} />
@@ -77,6 +78,9 @@ export default function App() {
           )}
           {currentScreen === 'wellness' && (
             <MentalWellnessToolkit key="wellness" />
+          )}
+          {currentScreen === 'sleep' && (
+            <SleepCoachScreen key="sleep" />
           )}
           {currentScreen === 'profile' && (
             <motion.div

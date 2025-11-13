@@ -15,9 +15,10 @@ import {
 interface EnhancedHomeScreenProps {
   userName: string;
   currentMood: 'calm' | 'anxious' | 'happy' | 'neutral';
+  onNavigate?: (screen: string) => void;
 }
 
-export function EnhancedHomeScreen({ userName, currentMood }: EnhancedHomeScreenProps) {
+export function EnhancedHomeScreen({ userName, currentMood, onNavigate }: EnhancedHomeScreenProps) {
   const getGreeting = () => {
     const hour = new Date().getHours();
     if (hour < 12) return 'Good morning';
@@ -35,7 +36,7 @@ export function EnhancedHomeScreen({ userName, currentMood }: EnhancedHomeScreen
     { icon: BookOpen, label: 'Journal', color: 'from-pink-400 to-rose-500', route: 'journal' },
     { icon: Wind, label: 'Breathe', color: 'from-teal-400 to-cyan-500', route: 'wellness' },
     { icon: TrendingUp, label: 'Reflect', color: 'from-blue-400 to-indigo-500', route: 'reflection' },
-    { icon: Dumbbell, label: 'Move', color: 'from-orange-400 to-amber-500', route: 'fitness' },
+    { icon: Dumbbell, label: 'Move', color: 'from-orange-400 to-amber-500', route: 'habits' },
     { icon: MoonIcon, label: 'Sleep', color: 'from-indigo-400 to-purple-600', route: 'sleep' },
   ];
 
@@ -187,6 +188,7 @@ export function EnhancedHomeScreen({ userName, currentMood }: EnhancedHomeScreen
                   transition={{ delay: 0.4 + index * 0.05 }}
                   whileHover={{ scale: 1.05, y: -5 }}
                   whileTap={{ scale: 0.95 }}
+                  onClick={() => onNavigate?.(action.route)}
                   className="flex flex-col items-center gap-3 p-5 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 hover:bg-white/10 transition-colors"
                 >
                   <div className={`p-4 rounded-xl bg-gradient-to-br ${action.color} shadow-lg`}>
